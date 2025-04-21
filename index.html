@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>D&D Notes</title>
+    <link rel="stylesheet" href="./base.css">
+</head>
+
+<body>
+    <div class="information">
+    </div>
+    <button onclick="setCampaign()">Open</button>
+    <h1>Campaign Info</h1>
+    <input id="campaignTitle" placeholder="Campaign Title" />
+    <button onclick="saveTitle()">Save</button>
+    <p><strong>Loaded:</strong> <span id="loadedTitle">None</span></p>
+
+    <div class="modal-outer">
+        <div class="modal-inner" scrolling="auto">
+        </div>
+    </div>
+    <script src="./main.js"></script>
+    <script type="module" src="firebase.js">
+    </script>
+    <style>
+        .openCampaign,
+        .createCampaign {
+            display: inline-block;
+            width: 90%;
+            grid-row: 1/ span 1;
+        }
+
+        .information {
+            display: grid;
+            columns: 2;
+        }
+
+        .modal-outer {
+            display: grid;
+            /*background: hsla(50, 100%, 50%, 0.7);*/
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            top: 0;
+            left: 0;
+            justify-content: center;
+            align-items: center;
+            /* Hide this modal until we need it */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .modal-outer img {
+            width: 100%;
+        }
+
+        .modal-outer.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-inner {
+            /*position: fixed;*/
+            max-width: 600px;
+            /*400px*/
+            min-width: 400px;
+            overflow-y: scroll;
+
+            padding: 2rem;
+            border-radius: 5px;
+            min-height: 300px;
+            max-height: 500px;
+            margin-top: 130px;
+            background: white;
+            /*background: hlsa(41, 100, 49, 1);    not working??*/
+            transform: translateY(-200%);
+            transition: transform 2s;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            /*custom*/
+
+        }
+
+        .modal-outer.open .modal-inner {
+            transform: translateY(0);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            /* Aligns items vertically */
+            gap: 10px;
+            /* Adds spacing between elements */
+        }
+
+        h1 {
+            margin: 0;
+            /* Ensures no extra space around the header */
+        }
+
+        button {
+            padding: 5px;
+            display: flex;
+            /* Centers the SVG inside the button */
+            align-items: center;
+            justify-content: center;
+            /*border: none;
+            background: none;
+            cursor: pointer;*/
+        }
+
+        .sessionNotesInput,
+        .currentSessionNotesInput {
+            width: 73%;
+            /* Makes it take up full width */
+            min-height: 100px;
+            /* Start with a larger height */
+            max-height: 300px;
+            /* Limit the height before scrolling */
+            resize: vertical;
+            /* Allow resizing but only vertically */
+            overflow-y: auto;
+            /* Enables scrolling if content overflows */
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        .character-wrapper,
+        .item-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+
+        .characters,
+        .inventory,
+        .sessions {
+            width: 90%;
+        }
+
+        .characters {
+            grid-row: 1/ span 3;
+            grid-column: 1/ span 1;
+        }
+
+        .sessions {
+            grid-row: 1/ span 2;
+            grid-column: 2/ span 1;
+        }
+
+        .inventory {
+            grid-row: 3/ span 1;
+            grid-column: 2/ span 1;
+        }
+
+        .character-wrapper h2,
+        .item-wrapper h2 {
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .session-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+
+        .session-wrapper h2 {
+            margin: 0;
+            flex-grow: 1;
+            /* Ensures the h2 takes up available space */
+            white-space: nowrap;
+            /* Prevents text from wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .delete {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            /* Adds space between the title and button */
+        }
+
+        .currentCharacterHealthInput {
+            width: 75px;
+            padding: 5px;
+            display: inline-block;
+        }
+    </style>
+</body>
+
+</html>
