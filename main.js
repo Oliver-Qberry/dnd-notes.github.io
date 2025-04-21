@@ -393,6 +393,9 @@ function createCampaign(){
 
 window.onload = function(){
     loadCampaigns();
+    if(!campaigns.length){
+        return;
+    }
     var selectHtml = `<div class="wrapper openCampaign">
     <h1>Open Campaign</h1>
     <select id="campaignInput">
