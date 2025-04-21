@@ -1,8 +1,3 @@
-//import {db}  from './firebase.js';
-/*import {
-doc, getDoc, setDoc, updateDoc, collection, getDocs
-} from "firebase/firestore";*/
-//import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 const mainDiv = document.querySelector('.information');
 
 var charactersDiv;
